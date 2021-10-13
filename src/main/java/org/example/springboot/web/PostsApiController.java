@@ -8,7 +8,7 @@ import org.example.springboot.web.dto.PostsUpdateRequestDto;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RestController
+@RestController //컨트롤러를 JSON을 반환하는 컨트롤러로 만들어줌
 public class PostsApiController {
 
     private final PostsService postsService;
