@@ -6,14 +6,15 @@
                             <a href ="/posts/save" role="button" class = "btn btn-primary">
                                 글 등록
                             </a>
-                            {{#userName}}
-                                <span id="user">{{userName}}님</span>
+                            {{#name}}
+                                <span id="user">{{name}}님</span>
                                 <a href="/logout" class="btn btn-info active" role="button">Logout</a>
-                            {{/userName}}
+                            {{/name}}
 
-                            {{^userName}}
+                            {{^name}}
                                 <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
-                            {{/userName}}
+                                <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
+                            {{/name}}
                         </div>
                     </div>
                     <br>

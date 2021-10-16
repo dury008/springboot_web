@@ -1,9 +1,13 @@
 package org.example.springboot.web;
 
+import org.example.springboot.config.auth.SecurityConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -12,13 +16,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class) //Springboot 테스트와 junit 사이에 연결자
-@WebMvcTest(controllers = HelloController.class) //web에 집중할수 있는 어노테이션
+@WebMvcTest(controllers = HelloController.class,
+excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)) //web에 집중할수 있는 어노테이션
 
 public class HelloControllerTest {
     @Autowired //스프링이 관리하는 빈을 주입받는다
     private MockMvc mvc; //이 클래스를통해 get post등에 관한 api테스트를 할수있음
 
     @Test
+    @WithMockUser(roles = "USER")
     public void hello가_리턴된다() throws Exception{
         String hello = "hello";
 
@@ -28,6 +34,7 @@ public class HelloControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void helloDto가_리턴된다() throws Exception {
         String name = "hello";
         int amount = 1000;
